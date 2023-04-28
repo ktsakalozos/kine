@@ -84,6 +84,11 @@ func setup(ctx context.Context, db *sql.DB) error {
 		return err
 	}
 
+	_, err := db.ExecContext(ctx, `PRAGMA page_size = 512`)
+	if err != nil {
+		return err
+	}
+
 	if schemaVersion == databaseSchemaVersion {
 		return nil
 	}
